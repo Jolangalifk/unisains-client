@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .body {
     width: 100%;
     height: 100vh;
@@ -89,6 +89,14 @@ export default {
 }
 
 .login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 30px;
+}
+
+.login .account {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -248,5 +256,3 @@ button h3 {
     height: 100vh;
 }
 </style>
-
-   
