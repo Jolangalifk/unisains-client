@@ -100,6 +100,22 @@ export default {
     color: black;
 }
 
+.register {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.account {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .login {
     width: 100%;
     display: flex;
@@ -111,6 +127,7 @@ export default {
 .wrapper-name {
     width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin-bottom: 20px;
 }
@@ -292,5 +309,3 @@ button h3 {
     height: 100vh;
 }
 </style>
-
-   
