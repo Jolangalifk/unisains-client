@@ -375,7 +375,6 @@ import Footer from '../components/Footer.vue'
   width: 84%;
   font-size: 48px;
   font-weight: bold;
-  color: black;
   margin-bottom: 25px;
   line-height: 1.3;
   color: white;
