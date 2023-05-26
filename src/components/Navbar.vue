@@ -8,9 +8,9 @@
         </div>
         <div class="menu">
             <ul>
-                <li><a href="#">Beranda</a></li>
-                <li><a href="#">Kursus</a></li>
-                <li><a href="#">Tentang kami</a></li>
+                <li><a href="/home">Beranda</a></li>
+                <li><a href="course">Kursus</a></li>
+                <li><a href="/about">Tentang kami</a></li>
             </ul>
         </div>
         <div class="account">
