@@ -6,31 +6,32 @@
                     <h1>Daftar</h1>
                     <p>Daftarkan akun anda untuk memulai belajar sains!</p>
                 </div>
-                <div class="register">
-                    <div class="account">
-                        <div class="wrapper-name">
-                            <div class="name">
-                                <input type="text" placeholder="Nama depan">
-                            </div>
-                            <div class="name">
-                                <input type="text" placeholder="Nama belakang">
-                            </div>
+                <form class="form-input" v-on:submit.prevent="Register">
+                    <div class="wrapper-name">
+                        <div class="name">
+                            <input type="text" placeholder="Nama depan" v-model="first_name">
                         </div>
-                        <div class="wrapper">
-                            <img src="@/assets/icon/user-icon.svg" alt="">
-                            <input type="text" placeholder="Masukkan username">
-                        </div>
-                        <div class="wrapper">
-                            <img src="@/assets/icon/email-icon.svg" alt="">
-                            <input type="text" placeholder="Masukkan email">
-                        </div>
-                        <div class="wrapper">
-                            <img src="@/assets/icon/password-icon.svg" alt="">
-                            <input type="password" placeholder="Masukkan password">
+                        <div class="name">
+                            <input type="text" placeholder="Nama belakang" v-model="last_name">
                         </div>
                     </div>
-                    <button class="register-btn">Daftar</button>
-                </div>
+                    <div class="form-group">
+                        <label for="Username"></label>
+                        <img src="@/assets/icon/email-icon.svg" alt="">
+                        <input type="text" placeholder="Masukkan Username" v-model="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email"></label>
+                        <img src="@/assets/icon/email-icon.svg" alt="">
+                        <input type="email" placeholder="Masukkan Email" v-model="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password"></label>
+                        <img src="@/assets/icon/password-icon.svg" alt="">
+                        <input type="password" placeholder="Masukkan Password" v-model="password">
+                    </div>
+                    <button type="submit" class="button-register">Submit</button>
+                </form>
                 <div class="social-media-register">
                     <p>Atau daftar dengan</p>
                     <div class="social-media">
@@ -56,9 +57,43 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-    name: 'Register'
+    name: 'Register',
+    data() {
+        return {
+            first_name: '',
+            last_name: '',
+            username: '',
+            email: '',
+            password: '',
+        }
+    }, 
+    methods: {
+        async Register() {
+            let result = await axios.post('{{host}}{{v1}}auth/register', {
+                first_name : this.first_name,
+                last_name : this.last_name,
+                username: this.username,
+                email: this.email,
+                password: this.password,
+            });
+            console.log(result);
+            if (result.status == 201 && result.data) {
+                alert('Register berhasil');
+                localStorage.setItem('user-info', JSON.stringify(result.data));
+                this.$router.push('/login');
+            }
+        },
+        tes() {
+            console.log('Register berhasil');
+            alert('Register berhasil');
+        }
+    },
 }
+
+
 </script>
 
 <style>
@@ -98,6 +133,55 @@ export default {
     font-size: 20px;
     font-weight: normal;
     color: black;
+}
+
+.form-group {
+    width: 100%;
+    height: 80px;
+    margin: 8px 0;
+    padding: 0 8px;
+    border: 1px solid #c1c1c1;
+    border-radius: 30px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-group img {
+    width: 35px;
+    height: 35px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.form-group input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-family: poppins;
+    font-weight: normal;
+    color: black;
+}
+
+.button-register {
+    width: 100%;
+    height: 80px;
+    border: none;
+    border-radius: 30px;
+    box-sizing: border-box;
+    background-color: #F08A5D;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    font-family: poppins;
 }
 
 .register {
