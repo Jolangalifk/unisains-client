@@ -8,14 +8,14 @@
                 </div>
                 <form class="form-input" v-on:submit.prevent="Login">
                     <div class="form-group">
-                      <label for="Email"></label>
-                      <img src="@/assets/icon/email-icon.svg" alt="">
-                      <input type="email" placeholder="Masukkan Email" v-model="email">
+                        <label for="Email"></label>
+                        <img src="@/assets/icon/email-icon.svg" alt="">
+                        <input type="email" placeholder="Masukkan Email" v-model="email">
                     </div>
                     <div class="form-group">
-                      <label for="Password"></label>
-                      <img src="@/assets/icon/password-icon.svg" alt="">
-                      <input type="password" placeholder="Masukkan Password" v-model="password">
+                        <label for="Password"></label>
+                        <img src="@/assets/icon/password-icon.svg" alt="">
+                        <input type="password" placeholder="Masukkan Password" v-model="password">
                     </div>
                     <button type="submit" class="button-login">Login</button>
                 </form>
@@ -56,17 +56,22 @@ export default {
     },
     methods: {
         async Login() {
-            let result = await axios.get('{{local}}{{v1}}auth/login', {
-                email: this.email,
-                password: this.password,
-            });
-            console.log(result);
-            if (result.status == 200 && result.data) {
-                alert('Login berhasil');
-                localStorage.setItem('user-info', JSON.stringify(result.data));
-                this.$router.push('/');
+            try {
+                let result = await axios.post('http://127.0.0.1:8000/api/v1/auth/login', {
+                    email: this.email,
+                    password: this.password,
+                });
+                console.log(result);
+                if (result.status === 200 && result.data) {
+                    alert('Login berhasil');
+                    localStorage.setItem('user-info', JSON.stringify(result.data.token));
+                    this.$router.push('/home');
+                }
+            } catch (error) {
+                console.error(error);
             }
         }
+
     },
 }
 </script>
@@ -143,7 +148,7 @@ export default {
     width: 100%;
     height: 80px;
     border: none;
-    border-radius: 30px;  
+    border-radius: 30px;
     box-sizing: border-box;
     background-color: #F08A5D;
     color: white;
